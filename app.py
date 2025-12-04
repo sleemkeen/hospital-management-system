@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import db, User, Patient, Doctor, Appointment, Bill, Prescription
-from datetime import datetime
+from datetime import datetime, date, timedelta
+import time
 
 import os
 
@@ -16,6 +17,61 @@ db.init_app(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
+def init_database():
+    """Create tables and seed initial data if database is empty"""
+    db.create_all()
+    
+    # Check if data already exists
+    if User.query.first():
+        return
+    
+    # Create default users
+    users = [
+        User(username='admin', password=generate_password_hash('admin123'), role='admin'),
+        User(username='reception', password=generate_password_hash('reception123'), role='receptionist')
+    ]
+    for user in users:
+        db.session.add(user)
+    
+    # Create sample doctors
+    doctors = [
+        Doctor(name='Dr. John Smith', specialty='General Medicine', phone='555-0101', available=True),
+        Doctor(name='Dr. Sarah Johnson', specialty='Cardiology', phone='555-0102', available=True),
+        Doctor(name='Dr. Michael Brown', specialty='Pediatrics', phone='555-0103', available=True),
+    ]
+    for doctor in doctors:
+        db.session.add(doctor)
+    db.session.commit()
+    
+    # Create doctor user account
+    doctor_user = User(username='doctor', password=generate_password_hash('doctor123'), role='doctor', doctor_id=1)
+    db.session.add(doctor_user)
+    
+    # Create sample patients
+    patients = [
+        Patient(name='Alice Williams', age=35, gender='Female', phone='555-1001', address='123 Main St'),
+        Patient(name='Bob Martinez', age=45, gender='Male', phone='555-1002', address='456 Oak Ave'),
+    ]
+    for patient in patients:
+        db.session.add(patient)
+    db.session.commit()
+    
+    print("Database initialized with sample data!")
+
+# Initialize database with retry logic for Docker
+with app.app_context():
+    max_retries = 5
+    for attempt in range(max_retries):
+        try:
+            init_database()
+            break
+        except Exception as e:
+            if attempt < max_retries - 1:
+                print(f"Database not ready, retrying in 3 seconds... (attempt {attempt + 1}/{max_retries})")
+                time.sleep(3)
+            else:
+                print(f"Warning: Could not initialize database: {e}")
 
 @login_manager.user_loader
 def load_user(user_id):
