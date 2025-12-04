@@ -4,10 +4,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from models import db, User, Patient, Doctor, Appointment, Bill, Prescription
 from datetime import datetime
 
+import os
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hospital-secret-key-2024'
-# MySQL Configuration - Update these values with your MySQL credentials
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/hospital_db'
+# MySQL Configuration - Uses environment variable or defaults to localhost
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'mysql+pymysql://root:root@localhost/hospital_db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
@@ -307,5 +309,5 @@ def view_prescription(id):
     return render_template('view_prescription.html', prescription=prescription)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    app.run(debug=True, host='0.0.0.0', port=5001)
 
