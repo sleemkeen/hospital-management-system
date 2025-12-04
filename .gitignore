@@ -34,3 +34,4 @@ Thumbs.db
 # Docker
 mysql_data/
 
+.cursor/
