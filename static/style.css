@@ -1,7 +1,7 @@
 /* ===== CSS Variables ===== */
 :root {
-    --primary: #dc2626;
-    --primary-dark: #b91c1c;
+    --primary: #05668d;
+    --primary-dark: #093748;
     --secondary: #64748b;
     --success: #22c55e;
     --danger: #ef4444;
@@ -41,7 +41,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #7f1d1d 0%, #dc2626 100%);
+    background: linear-gradient(135deg, #093748 0%, #05668d 100%);
 }
 
 .login-container {
@@ -617,7 +617,7 @@ body {
 }
 
 .prescription-header {
-    background: linear-gradient(135deg, #7f1d1d 0%, #dc2626 100%);
+    background: linear-gradient(135deg, #093748 0%, #05668d 100%);
     color: var(--white);
     padding: 25px 30px;
     display: flex;
