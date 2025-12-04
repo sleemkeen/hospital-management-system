@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Billing - Hospital MS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Billing</h1>
+    {% if current_user.role in ['admin', 'receptionist'] %}
+    <a href="{{ url_for('generate_bill') }}" class="btn btn-primary">+ Generate Bill</a>
+    {% endif %}
+</div>
+
+<div class="table-container">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Bill ID</th>
+                <th>Patient</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bill in bills %}
+            <tr>
+                <td>{{ bill.bill_id }}</td>
+                <td>{{ bill.patient.name }}</td>
+                <td>${{ "%.2f"|format(bill.amount) }}</td>
+                <td>{{ bill.date.strftime('%Y-%m-%d') }}</td>
+                <td><span class="status status-{{ 'completed' if bill.status == 'paid' else 'scheduled' }}">{{ bill.status }}</span></td>
+                <td class="actions">
+                    {% if bill.status == 'pending' %}
+                    <a href="{{ url_for('pay_bill', id=bill.bill_id) }}" class="btn btn-sm btn-success">Mark Paid</a>
+                    {% endif %}
+                    <a href="{{ url_for('print_receipt', id=bill.bill_id) }}" class="btn btn-sm btn-info" target="_blank">Receipt</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" class="empty-message">No bills found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

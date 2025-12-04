@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Doctor - Hospital MS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Edit Doctor</h1>
+    <a href="{{ url_for('doctors') }}" class="btn btn-outline">← Back</a>
+</div>
+
+<div class="form-container">
+    <form method="POST" class="form">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="name">Full Name *</label>
+                <input type="text" id="name" name="name" value="{{ doctor.name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="specialty">Specialty *</label>
+                <select id="specialty" name="specialty" required>
+                    <option value="General Medicine" {% if doctor.specialty == 'General Medicine' %}selected{% endif %}>General Medicine</option>
+                    <option value="Cardiology" {% if doctor.specialty == 'Cardiology' %}selected{% endif %}>Cardiology</option>
+                    <option value="Dermatology" {% if doctor.specialty == 'Dermatology' %}selected{% endif %}>Dermatology</option>
+                    <option value="Neurology" {% if doctor.specialty == 'Neurology' %}selected{% endif %}>Neurology</option>
+                    <option value="Orthopedics" {% if doctor.specialty == 'Orthopedics' %}selected{% endif %}>Orthopedics</option>
+                    <option value="Pediatrics" {% if doctor.specialty == 'Pediatrics' %}selected{% endif %}>Pediatrics</option>
+                    <option value="Psychiatry" {% if doctor.specialty == 'Psychiatry' %}selected{% endif %}>Psychiatry</option>
+                    <option value="Surgery" {% if doctor.specialty == 'Surgery' %}selected{% endif %}>Surgery</option>
+                    <option value="ENT" {% if doctor.specialty == 'ENT' %}selected{% endif %}>ENT</option>
+                    <option value="Ophthalmology" {% if doctor.specialty == 'Ophthalmology' %}selected{% endif %}>Ophthalmology</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="phone">Phone *</label>
+                <input type="tel" id="phone" name="phone" value="{{ doctor.phone }}" required>
+            </div>
+            <div class="form-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="available" {% if doctor.available %}checked{% endif %}>
+                    Available for appointments
+                </label>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Update Doctor</button>
+            <a href="{{ url_for('doctors') }}" class="btn btn-outline">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+

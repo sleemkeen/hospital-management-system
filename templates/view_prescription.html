@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Prescription Details - Hospital MS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Prescription Details</h1>
+    <a href="{{ url_for('prescriptions') }}" class="btn btn-outline">← Back</a>
+</div>
+
+<div class="prescription-card">
+    <div class="prescription-header">
+        <div class="hospital-info">
+            <h2>🏥 Hospital Management System</h2>
+            <p>123 Medical Street, Health City</p>
+            <p>Tel: (555) 123-4567</p>
+        </div>
+        <div class="prescription-id">
+            <span>Rx #{{ prescription.presc_id }}</span>
+            <span>{{ prescription.date.strftime('%Y-%m-%d') }}</span>
+        </div>
+    </div>
+    
+    <div class="prescription-body">
+        <div class="info-section">
+            <div class="info-row">
+                <label>Patient:</label>
+                <span>{{ prescription.patient.name }}</span>
+            </div>
+            <div class="info-row">
+                <label>Age/Gender:</label>
+                <span>{{ prescription.patient.age }} yrs / {{ prescription.patient.gender }}</span>
+            </div>
+        </div>
+        
+        <div class="rx-section">
+            <h3>℞ Prescription</h3>
+            <div class="medicine-box">
+                <label>Medicine:</label>
+                <p>{{ prescription.medicine }}</p>
+            </div>
+            <div class="dosage-box">
+                <label>Dosage:</label>
+                <p>{{ prescription.dosage }}</p>
+            </div>
+        </div>
+        
+        <div class="doctor-section">
+            <div class="doctor-info">
+                <p><strong>Dr. {{ prescription.doctor.name }}</strong></p>
+                <p>{{ prescription.doctor.specialty }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <button class="btn btn-primary" onclick="window.print()">Print Prescription</button>
+</div>
+{% endblock %}
+

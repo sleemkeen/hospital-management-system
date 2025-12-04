@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Doctors - Hospital MS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Doctors</h1>
+    {% if current_user.role == 'admin' %}
+    <a href="{{ url_for('add_doctor') }}" class="btn btn-primary">+ Add Doctor</a>
+    {% endif %}
+</div>
+
+<div class="table-container">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Specialty</th>
+                <th>Phone</th>
+                <th>Status</th>
+                {% if current_user.role == 'admin' %}
+                <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for doctor in doctors %}
+            <tr>
+                <td>{{ doctor.doctor_id }}</td>
+                <td>{{ doctor.name }}</td>
+                <td>{{ doctor.specialty }}</td>
+                <td>{{ doctor.phone }}</td>
+                <td>
+                    <span class="status {% if doctor.available %}status-scheduled{% else %}status-cancelled{% endif %}">
+                        {{ 'Available' if doctor.available else 'Unavailable' }}
+                    </span>
+                </td>
+                {% if current_user.role == 'admin' %}
+                <td class="actions">
+                    <a href="{{ url_for('edit_doctor', id=doctor.doctor_id) }}" class="btn btn-sm btn-secondary">Edit</a>
+                    <a href="{{ url_for('delete_doctor', id=doctor.doctor_id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Delete this doctor?')">Delete</a>
+                </td>
+                {% endif %}
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" class="empty-message">No doctors found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

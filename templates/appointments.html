@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Appointments - Hospital MS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Appointments</h1>
+    {% if current_user.role != 'doctor' %}
+    <a href="{{ url_for('book_appointment') }}" class="btn btn-primary">+ Book Appointment</a>
+    {% endif %}
+</div>
+
+<div class="table-container">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for apt in appointments %}
+            <tr>
+                <td>{{ apt.appoint_id }}</td>
+                <td>{{ apt.patient.name }}</td>
+                <td>{{ apt.doctor.name }}</td>
+                <td>{{ apt.date }}</td>
+                <td>{{ apt.time }}</td>
+                <td><span class="status status-{{ apt.status }}">{{ apt.status }}</span></td>
+                <td class="actions">
+                    {% if apt.status == 'scheduled' %}
+                    <a href="{{ url_for('complete_appointment', id=apt.appoint_id) }}" class="btn btn-sm btn-success">Complete</a>
+                    <a href="{{ url_for('cancel_appointment', id=apt.appoint_id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Cancel this appointment?')">Cancel</a>
+                    {% else %}
+                    <span class="text-muted">-</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7" class="empty-message">No appointments found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

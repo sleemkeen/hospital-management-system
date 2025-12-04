@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Patient - Hospital MS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Register New Patient</h1>
+    <a href="{{ url_for('patients') }}" class="btn btn-outline">← Back</a>
+</div>
+
+<div class="form-container">
+    <form method="POST" class="form">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="name">Full Name *</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age *</label>
+                <input type="number" id="age" name="age" min="0" max="150" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="gender">Gender *</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone *</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="3"></textarea>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Register Patient</button>
+            <a href="{{ url_for('patients') }}" class="btn btn-outline">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+

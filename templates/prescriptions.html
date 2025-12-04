@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Prescriptions - Hospital MS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Prescriptions</h1>
+    {% if current_user.role == 'doctor' or current_user.role == 'admin' %}
+    <a href="{{ url_for('add_prescription') }}" class="btn btn-primary">+ Write Prescription</a>
+    {% endif %}
+</div>
+
+<div class="table-container">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Medicine</th>
+                <th>Dosage</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for presc in prescriptions %}
+            <tr>
+                <td>{{ presc.presc_id }}</td>
+                <td>{{ presc.patient.name }}</td>
+                <td>{{ presc.doctor.name }}</td>
+                <td>{{ presc.medicine }}</td>
+                <td>{{ presc.dosage }}</td>
+                <td>{{ presc.date.strftime('%Y-%m-%d') }}</td>
+                <td class="actions">
+                    <a href="{{ url_for('view_prescription', id=presc.presc_id) }}" class="btn btn-sm btn-info">View</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7" class="empty-message">No prescriptions found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

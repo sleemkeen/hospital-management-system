@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}Patient Details - Hospital MS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Patient Details</h1>
+    <a href="{{ url_for('patients') }}" class="btn btn-outline">← Back</a>
+</div>
+
+<div class="detail-card">
+    <div class="detail-header">
+        <h2>{{ patient.name }}</h2>
+        <span class="badge">ID: {{ patient.patient_id }}</span>
+    </div>
+    <div class="detail-grid">
+        <div class="detail-item">
+            <label>Age</label>
+            <span>{{ patient.age }} years</span>
+        </div>
+        <div class="detail-item">
+            <label>Gender</label>
+            <span>{{ patient.gender }}</span>
+        </div>
+        <div class="detail-item">
+            <label>Phone</label>
+            <span>{{ patient.phone }}</span>
+        </div>
+        <div class="detail-item">
+            <label>Registration Date</label>
+            <span>{{ patient.reg_date.strftime('%Y-%m-%d') }}</span>
+        </div>
+        <div class="detail-item full-width">
+            <label>Address</label>
+            <span>{{ patient.address or 'N/A' }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h3>Appointments History</h3>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Doctor</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for apt in patient.appointments %}
+                <tr>
+                    <td>{{ apt.date }}</td>
+                    <td>{{ apt.time }}</td>
+                    <td>{{ apt.doctor.name }}</td>
+                    <td><span class="status status-{{ apt.status }}">{{ apt.status }}</span></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="empty-message">No appointments</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="section">
+    <h3>Prescriptions</h3>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Doctor</th>
+                    <th>Medicine</th>
+                    <th>Dosage</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for presc in patient.prescriptions %}
+                <tr>
+                    <td>{{ presc.date.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ presc.doctor.name }}</td>
+                    <td>{{ presc.medicine }}</td>
+                    <td>{{ presc.dosage }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="empty-message">No prescriptions</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="section">
+    <h3>Bills</h3>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Bill ID</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bill in patient.bills %}
+                <tr>
+                    <td>{{ bill.bill_id }}</td>
+                    <td>{{ bill.date.strftime('%Y-%m-%d') }}</td>
+                    <td>${{ "%.2f"|format(bill.amount) }}</td>
+                    <td><span class="status status-{{ bill.status }}">{{ bill.status }}</span></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="empty-message">No bills</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+

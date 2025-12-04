@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Prescription - Hospital MS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Write Prescription</h1>
+    <a href="{{ url_for('prescriptions') }}" class="btn btn-outline">← Back</a>
+</div>
+
+<div class="form-container">
+    <form method="POST" class="form">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="patient_id">Patient *</label>
+                <select id="patient_id" name="patient_id" required>
+                    <option value="">Select Patient</option>
+                    {% for patient in patients %}
+                    <option value="{{ patient.patient_id }}">{{ patient.name }} (ID: {{ patient.patient_id }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% if current_user.role != 'doctor' %}
+            <div class="form-group">
+                <label for="doctor_id">Doctor *</label>
+                <select id="doctor_id" name="doctor_id" required>
+                    <option value="">Select Doctor</option>
+                    {% for doctor in doctors %}
+                    <option value="{{ doctor.doctor_id }}">{{ doctor.name }} - {{ doctor.specialty }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="medicine">Medicine *</label>
+            <textarea id="medicine" name="medicine" rows="3" required placeholder="Enter medicine names (one per line or comma-separated)"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="dosage">Dosage Instructions *</label>
+            <textarea id="dosage" name="dosage" rows="3" required placeholder="Enter dosage instructions"></textarea>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Prescription</button>
+            <a href="{{ url_for('prescriptions') }}" class="btn btn-outline">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
