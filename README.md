@@ -145,5 +145,4 @@ hospital-management/
 ```
 
 ---
-Created for University Programming Assignment CA 2 Haruna and Pooja
 
