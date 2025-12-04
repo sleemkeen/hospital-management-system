@@ -145,5 +145,5 @@ hospital-management/
 ```
 
 ---
-Created for University Database Assignment
+Created for University Programming Assignment CA 2 Haruna and Pooja
 
