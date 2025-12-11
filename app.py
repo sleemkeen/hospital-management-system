@@ -7,7 +7,7 @@ import os
 import time
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'hospital-secret-key-2024'
+app.config['SECRET_KEY'] = 'hospital-secret-key-2025'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'mysql+pymysql://root:root@localhost/hospital_db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
