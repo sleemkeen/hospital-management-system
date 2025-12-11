@@ -9,8 +9,10 @@
 <body class="login-page">
     <div class="login-container">
         <div class="login-header">
-            <span class="login-logo">🏥</span>
-            <h1>Hospital Management System</h1>
+            <a href="{{ url_for('home') }}" style="text-decoration: none;">
+                <span class="login-logo">🏥</span>
+            </a>
+            <h1>Staff Portal</h1>
             <p>Please login to continue</p>
         </div>
         
@@ -39,6 +41,7 @@
             <small>Admin: admin / admin123</small><br>
             <small>Doctor: doctor / doctor123</small><br>
             <small>Receptionist: reception / reception123</small>
+            <p style="margin-top: 15px;"><a href="{{ url_for('home') }}" style="color: var(--primary);">← Back to Home</a></p>
         </div>
     </div>
 </body>

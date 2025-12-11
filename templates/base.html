@@ -9,10 +9,10 @@
 <body>
     {% if current_user.is_authenticated %}
     <nav class="navbar">
-        <div class="nav-brand">
+        <a href="{{ url_for('home') }}" class="nav-brand" style="text-decoration: none;">
             <span class="logo">🏥</span>
-            <span>Hospital MS</span>
-        </div>
+            <span>MedCare</span>
+        </a>
         <ul class="nav-links">
             <li><a href="{{ url_for('dashboard') }}" class="{% if request.endpoint == 'dashboard' %}active{% endif %}">Dashboard</a></li>
             <li><a href="{{ url_for('patients') }}" class="{% if 'patient' in request.endpoint %}active{% endif %}">Patients</a></li>

@@ -64,7 +64,16 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 @app.route('/')
-def index():
+def home():
+    stats = {
+        'doctors': Doctor.query.count(),
+        'patients': Patient.query.count()
+    }
+    doctors = Doctor.query.limit(4).all()
+    return render_template('home.html', stats=stats, doctors=doctors)
+
+@app.route('/app')
+def app_index():
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
     return redirect(url_for('login'))

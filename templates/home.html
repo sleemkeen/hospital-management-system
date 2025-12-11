@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedCare Hospital</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="home-page">
+    <nav class="home-nav">
+        <div class="home-nav-brand">
+            <span>🏥</span> MedCare Hospital
+        </div>
+        <div class="home-nav-links">
+            <a href="#services">Services</a>
+            <a href="#doctors">Our Doctors</a>
+            <a href="#contact">Contact</a>
+            <a href="{{ url_for('login') }}" class="btn btn-primary">Staff Portal</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Your Health, Our Priority</h1>
+            <p>Providing exceptional healthcare services with compassion and expertise since 1995.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary btn-lg">Book Appointment</a>
+                <a href="#services" class="btn btn-outline btn-lg">Our Services</a>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <span class="stat-number">{{ stats.doctors }}+</span>
+                <span class="stat-label">Expert Doctors</span>
+            </div>
+            <div class="hero-stat">
+                <span class="stat-number">{{ stats.patients }}+</span>
+                <span class="stat-label">Happy Patients</span>
+            </div>
+            <div class="hero-stat">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Emergency Care</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services-section">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🩺</div>
+                <h3>General Medicine</h3>
+                <p>Comprehensive primary care for all ages, from routine checkups to managing chronic conditions.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">❤️</div>
+                <h3>Cardiology</h3>
+                <p>Advanced heart care including diagnostics, treatment, and preventive cardiology services.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">👶</div>
+                <h3>Pediatrics</h3>
+                <p>Specialized healthcare for infants, children, and adolescents in a child-friendly environment.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🦴</div>
+                <h3>Orthopedics</h3>
+                <p>Expert care for bones, joints, and muscles including sports medicine and rehabilitation.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🧴</div>
+                <h3>Dermatology</h3>
+                <p>Complete skin care solutions from medical treatments to cosmetic procedures.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🚑</div>
+                <h3>Emergency Care</h3>
+                <p>Round-the-clock emergency services with rapid response and critical care facilities.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="doctors" class="doctors-section">
+        <h2>Meet Our Doctors</h2>
+        <div class="doctors-grid">
+            {% for doctor in doctors %}
+            <div class="doctor-card">
+                <div class="doctor-avatar">👨‍⚕️</div>
+                <h3>{{ doctor.name }}</h3>
+                <p class="doctor-specialty">{{ doctor.specialty }}</p>
+                <span class="availability {% if doctor.available %}available{% else %}unavailable{% endif %}">
+                    {{ 'Available' if doctor.available else 'Unavailable' }}
+                </span>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Get In Touch</h2>
+                <p>Have questions or need to schedule an appointment? We're here to help.</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <div>
+                            <strong>Address</strong>
+                            <p>123 Healthcare Avenue, Medical District</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <div>
+                            <strong>Phone</strong>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">✉️</span>
+                        <div>
+                            <strong>Email</strong>
+                            <p>info@medcarehospital.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">🕐</span>
+                        <div>
+                            <strong>Hours</strong>
+                            <p>Mon-Sat: 8AM - 8PM | Emergency: 24/7</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Phone Number">
+                </div>
+                <div class="form-group">
+                    <textarea rows="4" placeholder="Your Message"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="home-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span>🏥</span> MedCare Hospital
+                <p>Caring for your health since 1995</p>
+            </div>
+            <div class="footer-links">
+                <a href="{{ url_for('login') }}">Staff Portal</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 MedCare Hospital. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+
