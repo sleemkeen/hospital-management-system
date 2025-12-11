@@ -1,8 +1,3 @@
-"""
-Database Initialization Script
-Run this file to create the database and add sample data
-"""
-
 from app import app, db
 from models import User, Patient, Doctor, Appointment, Bill, Prescription
 from werkzeug.security import generate_password_hash
@@ -39,11 +34,11 @@ def init_database():
         
         # Create sample doctors
         doctors = [
-            Doctor(name='Dr. John Smith', specialty='General Medicine', phone='555-0101', available=True),
-            Doctor(name='Dr. Sarah Johnson', specialty='Cardiology', phone='555-0102', available=True),
-            Doctor(name='Dr. Michael Brown', specialty='Pediatrics', phone='555-0103', available=True),
-            Doctor(name='Dr. Emily Davis', specialty='Dermatology', phone='555-0104', available=True),
-            Doctor(name='Dr. Robert Wilson', specialty='Orthopedics', phone='555-0105', available=False),
+            Doctor(name='Dr. Jonny Bravo', specialty='General Medicine', phone='555-0101', available=True),
+            Doctor(name='Dr. Bola Johnson', specialty='Cardiology', phone='555-0102', available=True),
+            Doctor(name='Dr. Adeyemi Brown', specialty='Pediatrics', phone='555-0103', available=True),
+            Doctor(name='Dr. Kolade John Olaiya', specialty='Dermatology', phone='555-0104', available=True),
+            Doctor(name='Dr. James Briwn', specialty='Orthopedics', phone='555-0105', available=False),
         ]
         
         for doctor in doctors:
@@ -63,11 +58,11 @@ def init_database():
         
         # Create sample patients
         patients = [
-            Patient(name='Alice Williams', age=35, gender='Female', phone='555-1001', address='123 Main St'),
-            Patient(name='Bob Martinez', age=45, gender='Male', phone='555-1002', address='456 Oak Ave'),
-            Patient(name='Carol Taylor', age=28, gender='Female', phone='555-1003', address='789 Pine Rd'),
-            Patient(name='David Anderson', age=52, gender='Male', phone='555-1004', address='321 Elm Blvd'),
-            Patient(name='Eva Thomas', age=8, gender='Female', phone='555-1005', address='654 Maple Dr'),
+            Patient(name='Bola Akinbode', age=35, gender='Female', phone='555-1001', address='123 Main St'),
+            Patient(name='Olaiya Mohammed', age=45, gender='Male', phone='555-1002', address='456 Oak Ave'),
+            Patient(name='Adeyemi Akinbode', age=28, gender='Female', phone='555-1003', address='789 Pine Rd'),
+            Patient(name='Kolade Thomas', age=52, gender='Male', phone='555-1004', address='321 Elm Blvd'),
+            Patient(name='James Akinbode', age=8, gender='Female', phone='555-1005', address='654 Maple Dr'),
         ]
         
         for patient in patients:

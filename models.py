@@ -5,7 +5,6 @@ from datetime import datetime
 db = SQLAlchemy()
 
 class User(UserMixin, db.Model):
-    """User table for login system"""
     __tablename__ = 'users'
     
     id = db.Column(db.Integer, primary_key=True)
@@ -18,7 +17,6 @@ class User(UserMixin, db.Model):
 
 
 class Patient(db.Model):
-    """Patient table"""
     __tablename__ = 'patients'
     
     patient_id = db.Column(db.Integer, primary_key=True)
@@ -35,7 +33,6 @@ class Patient(db.Model):
 
 
 class Doctor(db.Model):
-    """Doctor table"""
     __tablename__ = 'doctors'
     
     doctor_id = db.Column(db.Integer, primary_key=True)
@@ -49,7 +46,6 @@ class Doctor(db.Model):
 
 
 class Appointment(db.Model):
-    """Appointment table"""
     __tablename__ = 'appointments'
     
     appoint_id = db.Column(db.Integer, primary_key=True)
@@ -61,7 +57,6 @@ class Appointment(db.Model):
 
 
 class Bill(db.Model):
-    """Bill table"""
     __tablename__ = 'bills'
     
     bill_id = db.Column(db.Integer, primary_key=True)
@@ -72,7 +67,6 @@ class Bill(db.Model):
 
 
 class Prescription(db.Model):
-    """Prescription table"""
     __tablename__ = 'prescriptions'
     
     presc_id = db.Column(db.Integer, primary_key=True)

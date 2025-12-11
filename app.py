@@ -8,7 +8,6 @@ import time
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hospital-secret-key-2024'
-# MySQL Configuration - Uses environment variable or defaults to localhost
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'mysql+pymysql://root:root@localhost/hospital_db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -64,8 +63,6 @@ with app.app_context():
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# ==================== AUTH ROUTES ====================
-
 @app.route('/')
 def index():
     if current_user.is_authenticated:
@@ -103,8 +100,6 @@ def dashboard():
         'bills_pending': Bill.query.filter_by(status='pending').count()
     }
     return render_template('dashboard.html', stats=stats)
-
-# ==================== PATIENT ROUTES ====================
 
 @app.route('/patients')
 @login_required
@@ -166,8 +161,6 @@ def view_patient(id):
     patient = Patient.query.get_or_404(id)
     return render_template('view_patient.html', patient=patient)
 
-# ==================== DOCTOR ROUTES ====================
-
 @app.route('/doctors')
 @login_required
 def doctors():
@@ -225,8 +218,6 @@ def delete_doctor(id):
     flash('Doctor deleted successfully!', 'success')
     return redirect(url_for('doctors'))
 
-# ==================== APPOINTMENT ROUTES ====================
-
 @app.route('/appointments')
 @login_required
 def appointments():
@@ -274,8 +265,6 @@ def complete_appointment(id):
     flash('Appointment marked as completed!', 'success')
     return redirect(url_for('appointments'))
 
-# ==================== BILLING ROUTES ====================
-
 @app.route('/bills')
 @login_required
 def bills():
@@ -313,8 +302,6 @@ def pay_bill(id):
 def print_receipt(id):
     bill = Bill.query.get_or_404(id)
     return render_template('receipt.html', bill=bill)
-
-# ==================== PRESCRIPTION ROUTES ====================
 
 @app.route('/prescriptions')
 @login_required
