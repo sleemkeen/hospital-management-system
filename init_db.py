@@ -5,16 +5,13 @@ from datetime import datetime, date, timedelta
 
 def init_database():
     with app.app_context():
-        # Create all tables
         db.create_all()
         print("✓ Database tables created")
         
-        # Check if data already exists
         if User.query.first():
             print("! Database already contains data. Skipping initialization.")
             return
         
-        # Create default users
         users = [
             User(
                 username='admin',
@@ -32,7 +29,6 @@ def init_database():
             db.session.add(user)
         print("✓ Default users created")
         
-        # Create sample doctors
         doctors = [
             Doctor(name='Dr. Jonny Bravo', specialty='General Medicine', phone='555-0101', available=True),
             Doctor(name='Dr. Bola Johnson', specialty='Cardiology', phone='555-0102', available=True),
@@ -46,17 +42,15 @@ def init_database():
         db.session.commit()
         print("✓ Sample doctors added")
         
-        # Create doctor user account for Dr. John Smith
         doctor_user = User(
             username='doctor',
             password=generate_password_hash('doctor123'),
             role='doctor',
-            doctor_id=1  # Link to Dr. John Smith
+            doctor_id=1
         )
         db.session.add(doctor_user)
         print("✓ Doctor user account created")
         
-        # Create sample patients
         patients = [
             Patient(name='Bola Akinbode', age=35, gender='Female', phone='555-1001', address='123 Main St'),
             Patient(name='Olaiya Mohammed', age=45, gender='Male', phone='555-1002', address='456 Oak Ave'),
@@ -70,7 +64,6 @@ def init_database():
         db.session.commit()
         print("✓ Sample patients added")
         
-        # Create sample appointments
         today = date.today()
         appointments = [
             Appointment(patient_id=1, doctor_id=1, date=today + timedelta(days=1), time='09:00', status='scheduled'),
@@ -85,7 +78,6 @@ def init_database():
         db.session.commit()
         print("✓ Sample appointments added")
         
-        # Create sample bills
         bills = [
             Bill(patient_id=4, amount=150.00, status='paid'),
             Bill(patient_id=5, amount=75.00, status='paid'),
@@ -98,7 +90,6 @@ def init_database():
         db.session.commit()
         print("✓ Sample bills added")
         
-        # Create sample prescriptions
         prescriptions = [
             Prescription(
                 patient_id=4, doctor_id=3,
