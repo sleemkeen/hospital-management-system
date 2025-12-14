@@ -29,9 +29,9 @@ def init_database():
         db.session.add(user)
     
     doctors = [
-        Doctor(name='Dr. John Smith', specialty='General Medicine', phone='555-0101', available=True),
-        Doctor(name='Dr. Sarah Johnson', specialty='Cardiology', phone='555-0102', available=True),
-        Doctor(name='Dr. Michael Brown', specialty='Pediatrics', phone='555-0103', available=True),
+        Doctor(name='Dr. Peter Anderson', specialty='General Medicine', phone='555-0101', available=True),
+        Doctor(name='Dr. Pete Johnson', specialty='Cardiology', phone='555-0102', available=True),
+        Doctor(name='Dr. Qudus Brown', specialty='Pediatrics', phone='555-0103', available=True),
     ]
     for doctor in doctors:
         db.session.add(doctor)
